@@ -64,9 +64,21 @@ class _ChatScreenState extends State<ChatScreen>
                         fontSize: 15,
                         fontWeight: FontWeight.w300),),
                   ]),
-
-                Icon(Icons.phone),
-                Icon(Icons.video_call),
+                  SizedBox(
+                    width: 80,
+                  ),
+                Icon(Icons.phone,
+                    color: Colors.white),
+                  SizedBox(
+                    width: 10,
+                  ),
+                Icon(Icons.video_call,
+                    color: Colors.white),
+                  SizedBox(
+                    width: 10,
+                  ),
+                Icon(Icons.more_vert,
+                    color: Colors.white),
                 ],
               ),
             ),
