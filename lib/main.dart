@@ -167,12 +167,12 @@ class _MyHomePageState extends State<MyHomePage>
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              title: Text('Chats  '),
-              icon: Icon(Icons.chat)
+              title: Text('Home  '),
+              icon: Icon(Icons.home)
           ),
           BottomNavyBarItem(
-              title: Text('Status'),
-              icon: Icon(Icons.history)
+              title: Text('Chats'),
+              icon: Icon(Icons.chat)
           ),
           BottomNavyBarItem(
               title: Text('Search'),
