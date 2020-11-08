@@ -123,6 +123,8 @@ class _MyHomePageState extends State<MyHomePage>
           },
           children: <Widget>[
             Container(
+                ),
+            Container(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
@@ -149,8 +151,8 @@ class _MyHomePageState extends State<MyHomePage>
                           );
                         }),
                   ],
-                )),
-            Container(color: Colors.blue,),
+                )
+            ),
             Container(color: Colors.red,),
             Container(color: Colors.green,),
             Container(color: Colors.blue,),
@@ -175,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage>
               icon: Icon(Icons.chat)
           ),
           BottomNavyBarItem(
-              title: Text('Search'),
+              title: Text('Search User'),
               icon: Icon(Icons.search)
           ),
           BottomNavyBarItem(
