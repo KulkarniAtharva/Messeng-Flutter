@@ -15,4 +15,4 @@
   
 # Part 1 - Flutter App
 
-An Instagram redesign application which includes a realtime chat feature; with firebase as backend and uses QuickBlox SDK for communication via chat, group chat, push notifications and video calling
+An Instagram redesign application with Firebase as backend with features like real-time chatting, group chat, push notifications.
