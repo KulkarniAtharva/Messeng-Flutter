@@ -1,4 +1,5 @@
-class ChatModel {
+class ChatModel
+{
   String imgUrl;
   String name;
   String lastMessage;

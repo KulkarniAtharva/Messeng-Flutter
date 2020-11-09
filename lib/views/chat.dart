@@ -2,6 +2,8 @@ import 'package:Messenger/data/data.dart';
 import 'package:Messenger/models/message_model.dart';
 import 'package:flutter/material.dart';
 
+import '../chat_bar.dart';
+
 class ChatScreen extends StatefulWidget
 {
   @override
@@ -11,12 +13,23 @@ class ChatScreen extends StatefulWidget
 class _ChatScreenState extends State<ChatScreen>
 {
   List<MessageModel> messages = new List();
+  FocusNode myFocusNode;
+
+  String value = "";
 
   @override
   void initState()
   {
     super.initState();
     messages = getMessages();
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose()
+  {
+    myFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -65,17 +78,7 @@ class _ChatScreenState extends State<ChatScreen>
                         fontWeight: FontWeight.w300),),
                   ]),
                   SizedBox(
-                    width: 80,
-                  ),
-                Icon(Icons.phone,
-                    color: Colors.white),
-                  SizedBox(
-                    width: 10,
-                  ),
-                Icon(Icons.video_call,
-                    color: Colors.white),
-                  SizedBox(
-                    width: 10,
+                    width: 150,
                   ),
                 Icon(Icons.more_vert,
                     color: Colors.white),
@@ -87,18 +90,24 @@ class _ChatScreenState extends State<ChatScreen>
               child: ListView.builder(
                   itemCount: messages.length,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context, index)
+                  {
                     return ChattingTile(
                       isByMe: messages[index].isByme,
                       message: messages[index].message,
                     );
                   }),
-            )
+            ),
+            new Expanded(
+                child: new Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ChatBar()))
           ],
         ),
       ),
-      bottomSheet: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+      /*bottomSheet: Container(
+        child: ChatBar(),
+        /*padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
         width: MediaQuery.of(context).size.width,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -124,10 +133,17 @@ class _ChatScreenState extends State<ChatScreen>
               ),
               Expanded(
                 child: TextField(
+                  focusNode: myFocusNode,
+
+                  textInputAction: TextInputAction.send,
                   decoration: InputDecoration.collapsed(
                       hintText: "Aa",
-                      hintStyle:
-                      TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                      hintStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                  onChanged: (v) {
+                    //do something
+                    myFocusNode.requestFocus();
+                  },
+
                 ),
               ),
               Container(
@@ -144,8 +160,8 @@ class _ChatScreenState extends State<ChatScreen>
               ),
             ],
           ),
-        ),
-      ),
+        ),*/
+      ),*/
     );
   }
 }
