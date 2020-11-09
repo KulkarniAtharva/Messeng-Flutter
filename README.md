@@ -69,7 +69,7 @@ Recommend/Endorse me on [LinkedIn](https://www.linkedin.com/in/lamsanskar/)
 
 ### License
 
-    Copyright 2020 Sanskar Tiwari
+    Copyright 2020 Atharva Kulkarni
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
