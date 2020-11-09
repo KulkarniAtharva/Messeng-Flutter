@@ -7,9 +7,8 @@
 &nbsp;
 
 
-<B>Part 2 - [Messenger - Flutter Web App]()    <BR>
-   Part 3 - [Messenger - Android App]()     <BR><BR><BR>
-      <BR><BR>
+<B>Part 2 - [Messenger - Android App]()        <BR><BR><BR>
+      
 </B>
   
   
