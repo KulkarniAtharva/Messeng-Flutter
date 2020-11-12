@@ -1,7 +1,11 @@
 import 'package:Messenger/helpers/constants.dart';
+import 'package:Messenger/helpers/data.dart';
 import 'package:Messenger/services/auth.dart';
 import 'package:Messenger/services/database.dart';
-import 'package:Messenger/views/home.dart';
+import 'package:Messenger/views/chats.dart';
+
+import 'package:Messenger/widgets/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -150,8 +154,7 @@ class _SignUpState extends State<SignUp>
                                     ? null
                                     : "Please Enter "
                                         "Password more than 6 character",
-                                decoration:
-                                    Constants.themedecoration("password"),
+                                decoration: Constants.themedecoration("password"),
                                 obscureText: true,
                                 onChanged: (val) {
                                   setState(() {
@@ -202,7 +205,7 @@ class _SignUpState extends State<SignUp>
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => Home()));
+                                                builder: (context) => WebHome()));
                                       }
                                       else
                                       {

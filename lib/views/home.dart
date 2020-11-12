@@ -47,8 +47,7 @@ class _MyHomePageState extends State<Home>
 
     //1
     chatModel.name = "Adwait Gondhalekar";
-    chatModel.imgUrl =
-    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80";
+    chatModel.imgUrl = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80";
     chatModel.lastMessage = "how are you, lets catch up";
     chatModel.lastSeenTime = "5 m";
     chatModel.haveunreadmessages = false;
@@ -59,10 +58,8 @@ class _MyHomePageState extends State<Home>
 
     //1
     chatModel.name = "Virat Kohli";
-    chatModel.imgUrl =
-    "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=60";
-    chatModel.lastMessage =
-    "Oh hey there, Sanskar. I'm all good btw. How are you?";
+    chatModel.imgUrl = "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=60";
+    chatModel.lastMessage = "Oh hey there, Sanskar. I'm all good btw. How are you?";
     chatModel.lastSeenTime = "1 hr";
     chatModel.haveunreadmessages = false;
     chatModel.unreadmessages = 1;

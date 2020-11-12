@@ -8,14 +8,14 @@ class AuthService
 {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  User _userFromFirebaseUser(FirebaseUser user)
+  User _userFromFirebaseUser(User user)
   {
     return user != null ? User(uid: user.uid) : null;
   }
 
-  Stream<User> get user
+  Stream<auth.User> get user
   {
-    return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
+    return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
   Future signInWithEmailAndPassword(String email, String password) async
@@ -23,7 +23,7 @@ class AuthService
     try
     {
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = result.user;
+      auth.User user = result.user;
       return _userFromFirebaseUser(user);
     }
     catch (e)
@@ -33,18 +33,18 @@ class AuthService
     }
   }
 
-  Future<FirebaseUser> signInWithGoogle(BuildContext context) async
+  Future<auth.User> signInWithGoogle(BuildContext context) async
   {
-    final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+    final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
     final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
     final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(idToken: googleSignInAuthentication.idToken, accessToken: googleSignInAuthentication.accessToken);
+    final auth.AuthCredential credential = auth.GoogleAuthProvider.credential(idToken: googleSignInAuthentication.idToken, accessToken: googleSignInAuthentication.accessToken);
 
     AuthResult result = await _firebaseAuth.signInWithCredential(credential);
-    FirebaseUser userDetails = result.user;
+    auth.User userDetails = result.user;
 
     if (result == null)
     {
@@ -53,7 +53,7 @@ class AuthService
     {
       Constants.saveUserLoggedInSharedPreference(true);
       Constants.saveUserNameSharedPreference(userDetails.email.replaceAll("@gmail.com", "").toLowerCase());
-      Constants.saveUserAvatarSharedPreference(userDetails.photoUrl);
+      Constants.saveUserAvatarSharedPreference(userDetails.photoURL);
       Constants.saveUserEmailSharedPreference(userDetails.email);
       Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     }
@@ -67,7 +67,7 @@ class AuthService
     try
     {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = result.user;
+      auth.User user = result.user;
       return _userFromFirebaseUser(user);
     }
     catch (e)

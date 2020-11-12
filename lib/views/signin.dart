@@ -1,16 +1,13 @@
 import 'package:Messenger/helpers/constants.dart';
 import 'package:Messenger/services/auth.dart';
 import 'package:Messenger/services/database.dart';
-import 'package:Messenger/views/home.dart';
+import 'package:Messenger/views/chats.dart';
+import 'package:Messenger/views/forgot_password.dart';
+import 'package:Messenger/widgets/widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterchat/helpers/constants.dart';
-import 'package:flutterchat/services/auth.dart';
-import 'package:flutterchat/services/database.dart';
-import 'package:flutterchat/views/forgot_password.dart';
-import 'package:flutterchat/widgets/widgets.dart';
 
 class SignIn extends StatefulWidget
 {
@@ -41,7 +38,7 @@ class _SignInState extends State<SignIn>
   {
     DatabaseMethods().getRecentUsers().then((snapshot)
     {
-      print(snapshot.documents[0].data['userName'].toString()+"this is awesome");
+      print(snapshot.docs[0].data()['userName'].toString()+"this is awesome");
       setState(()
       {
         usersSnapshot = snapshot;
@@ -80,10 +77,10 @@ class _SignInState extends State<SignIn>
                   autoPlay: true,
                   enlargeCenterPage: false,
                   autoPlayAnimationDuration: Duration(milliseconds: 300)),
-              itemCount: usersSnapshot.documents.length,
+              itemCount: usersSnapshot.docs.length,
               itemBuilder: (context, index)
               {
-                return userNameChip(usersSnapshot.documents[index].data['userName']);
+                return userNameChip(usersSnapshot.docs[index].data()['userName']);
               })
           : Container(
               height: 20,
@@ -234,13 +231,13 @@ class _SignInState extends State<SignIn>
                                 else
                                 {
                                   Constants.saveUserLoggedInSharedPreference(true);
-                                  Constants.saveUserNameSharedPreference(userInfoSnapshot.documents[0].data["userName"]);
-                                  Constants.saveUserAvatarSharedPreference(userInfoSnapshot.documents[0].data["avatarUrl"]);
+                                  Constants.saveUserNameSharedPreference(userInfoSnapshot.docs[0].data()["userName"]);
+                                  Constants.saveUserAvatarSharedPreference(userInfoSnapshot.docs[0].data()["avatarUrl"]);
                                   Constants.saveUserEmailSharedPreference(emailController.text);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Home()));
+                                          builder: (context) => WebHome()));
                                 }
                               });
                             }

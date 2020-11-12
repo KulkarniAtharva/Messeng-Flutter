@@ -5,7 +5,7 @@ class DatabaseMethods
 {
   Future<void> addData(userData) async
   {
-    Firestore.instance.collection("users").add(userData).catchError((e)
+    FirebaseFirestore.instance.collection("users").add(userData).catchError((e)
     {
       print(e);
     });
@@ -13,20 +13,20 @@ class DatabaseMethods
 
   getData() async
   {
-    return Firestore.instance.collection("users").snapshots();
+    return FirebaseFirestore.instance.collection("users").snapshots();
   }
 
   getUserInfo(String email) async
   {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("users")
         .where("email", isEqualTo: email)
-        .getDocuments();
+        .get();
   }
 
   Future<QuerySnapshot> getRecentUsers() async
   {
-    return await Firestore.instance.collection("users").limit(10).getDocuments();
+    return await FirebaseFirestore.instance.collection("users").limit(10).getDocuments();
   }
 
   Future<bool> addChatRoom(chatRoom, String chatRoomId) async
@@ -35,10 +35,10 @@ class DatabaseMethods
     print("${blockedSnapshot.toString()} this what we have");
     if (blockedSnapshot.documents.length == 0)
     {
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection("chatRooms")
-          .document(chatRoomId)
-          .setData(chatRoom)
+          .doc(chatRoomId)
+          .set(chatRoom)
           .catchError((e)
       {
         print(e);
@@ -54,15 +54,15 @@ class DatabaseMethods
 
   Future<void> removeChatRoom(String chatRoomId) async
   {
-    Firestore.instance.collection("chatRooms").document(chatRoomId).delete();
-    Firestore.instance
+    FirebaseFirestore.instance.collection("chatRooms").doc(chatRoomId).delete();
+    FirebaseFirestore.instance
         .collection("chatRooms")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection("chats")
-        .getDocuments()
+        .get()
         .then((snapshot)
     {
-      for (DocumentSnapshot doc in snapshot.documents)
+      for (DocumentSnapshot doc in snapshot.docs)
       {
         doc.reference.delete();
       }
@@ -71,19 +71,19 @@ class DatabaseMethods
 
   removeChat({String chatRoomId, String chatId})
   {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("chatRooms")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection("chats")
-        .document(chatId)
+        .doc(chatId)
         .delete();
   }
 
   getChats(String chatRoomId) async
   {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRooms")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection("chats")
         .orderBy('time')
         .snapshots();
@@ -91,21 +91,21 @@ class DatabaseMethods
 
   Future<void> addMessage(String chatRoomId, messageData, String messageId, chatRoomUpdate) async
   {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("chatRooms")
-        .document(chatRoomId)
-        .setData(chatRoomUpdate, merge: true)
+        .doc(chatRoomId)
+        .set(chatRoomUpdate)
         .catchError((e)
     {
       print(e);
     });
 
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("chatRooms")
-        .document(chatRoomId)
+        .doc(chatRoomId)
         .collection("chats")
-        .document(messageId)
-        .setData(messageData)
+        .doc(messageId)
+        .set(messageData)
         .catchError((e)
     {
       print(e + "ho  ku nahi raha be");
@@ -114,21 +114,21 @@ class DatabaseMethods
 
   Future<void> blockUser({@required String userName, @required blockInfo})
   {
-    return Firestore.instance.collection("blockInfo").add(blockInfo);
+    return FirebaseFirestore.instance.collection("blockInfo").add(blockInfo);
   }
 
   Future<QuerySnapshot> isUserBlocked(String chatId)
   {
     print("this is the id we are checking at is UserBlocked + $chatId");
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("blockInfo")
         .where('id', isEqualTo: chatId)
-        .getDocuments();
+        .get();
   }
 
   getUserChats(String itIsMyName) async
   {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRooms")
         .where('users', arrayContains: itIsMyName)
         .snapshots();

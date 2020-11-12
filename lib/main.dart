@@ -1,5 +1,6 @@
 import 'package:Messenger/helpers/authenticate.dart';
 import 'package:Messenger/helpers/constants.dart';
+import 'package:Messenger/views/chats.dart';
 import 'package:Messenger/views/home.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp>
     return MaterialApp(
       title: 'FlutterDevConnect',
       debugShowCheckedModeBanner: false,
-      home: userIsLoggedIn != null ? userIsLoggedIn ? Home() : Authenticate() : Container(),
+      home: userIsLoggedIn != null ? userIsLoggedIn ? WebHome() : Authenticate() : Container(),
     );
   }
 }
