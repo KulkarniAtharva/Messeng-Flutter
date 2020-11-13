@@ -8,6 +8,7 @@ import 'package:Messenger/models/conversation_model.dart';
 import 'package:Messenger/models/gif_model.dart';
 import 'package:Messenger/services/auth.dart';
 import 'package:Messenger/services/database.dart';
+import 'package:Messenger/views/chats.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -250,20 +251,20 @@ class _ConversationScreenState extends State<ConversationScreen>
     if ((_selectedImage) != null)
     {
 // uploading image  to firebase storage
-      StorageReference blogImagesStorageReference = FirebaseStorage.instance
+      Reference blogImagesStorageReference = FirebaseStorage.instance
           .ref()
           .child("chatImages")
           .child("${randomAlphaNumeric(10)}.jpg");
 
-      final StorageUploadTask task =
-          blogImagesStorageReference.putFile(_selectedImage);
+      final UploadTask task = blogImagesStorageReference.putFile(_selectedImage);
 
-      downloadUrl = await (await task.onComplete).ref.getDownloadURL();
+      downloadUrl = await (await task.whenComplete(() => null)).ref.getDownloadURL();
 
       print(" $downloadUrl");
     }
 
-    Map<String, dynamic> messageData = {
+    Map<String, dynamic> messageData =
+    {
       "sendBy": await Constants.getUserNameSharedPreference(),
       "message": mesage,
       "time": DateTime.now().millisecondsSinceEpoch,
