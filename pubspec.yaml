@@ -77,9 +77,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Neue Haas Grotesk
+    - family: Overpass
       fonts:
-        - asset: assets/fonts/NHaasGroteskTXPro-55Rg.ttf
+        - asset: assets/fonts/overpass_bold.otf
+    - family: OverpassRegular
+      fonts:
+        - asset: assets/fonts/overpass_regular.otf
   # fonts:
   #   - family: Schyler
   #     fonts:

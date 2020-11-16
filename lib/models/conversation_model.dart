@@ -1,22 +1,27 @@
-class ConversationModel {
+class ConversationModel
+{
   bool sendByMe;
   String message;
 
   ConversationModel({this.sendByMe, this.message});
 
-  void setMessage(String s) {
+  void setMessage(String s)
+  {
     message = s;
   }
 
-  void setSendByMe(bool sendByme) {
+  void setSendByMe(bool sendByme)
+  {
     sendByMe = sendByme;
   }
 
-  String getMessage() {
+  String getMessage()
+  {
     return message;
   }
 
-  bool getSendByMe() {
+  bool getSendByMe()
+  {
     return sendByMe;
   }
 }

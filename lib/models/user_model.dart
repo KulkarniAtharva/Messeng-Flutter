@@ -1,4 +1,5 @@
-class UserModel {
+class UserModel
+{
   String name;
   String userUid;
   String emailId;

@@ -5,7 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class ChatInfo extends StatelessWidget {
+class ChatInfo extends StatelessWidget
+{
   final String userName;
   final String userImageUrl;
   final String chatRoomId;
@@ -22,7 +23,8 @@ class ChatInfo extends StatelessWidget {
       });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Container(
       child: Column(
         children: <Widget>[
@@ -110,10 +112,10 @@ class ChatInfo extends StatelessWidget {
   }
 }
 
-getChatRoomId(String a, String b) {
-  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+getChatRoomId(String a, String b)
+{
+  if(a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0))
     return "$b\_$a";
-  } else {
+  else
     return "$a\_$b";
-  }
 }

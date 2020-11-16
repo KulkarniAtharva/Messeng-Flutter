@@ -1,4 +1,5 @@
 import 'package:Messenger/helpers/constants.dart';
+import 'package:Messenger/views/chats.dart';
 import 'package:Messenger/views/home.dart';
 import 'package:Messenger/models/user_is_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,7 +28,7 @@ class AuthService
       User user = result.user;
       return _userFromFirebaseUser(user);
     }
-    catch (e)
+    catch(e)
     {
       print(e.toString());
       return null;
@@ -56,7 +57,7 @@ class AuthService
       Constants.saveUserNameSharedPreference(userDetails.email.replaceAll("@gmail.com", "").toLowerCase());
       Constants.saveUserAvatarSharedPreference(userDetails.photoURL);
       Constants.saveUserEmailSharedPreference(userDetails.email);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => WebHome()));
     }
 
     return userDetails;

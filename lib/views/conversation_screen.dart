@@ -62,8 +62,8 @@ bool isGifLoading = true;
 
 String _myName /*, _myEmail, _myAvatarUrl*/;
 
-class _ConversationScreenState extends State<ConversationScreen>
-    with TickerProviderStateMixin {
+class _ConversationScreenState extends State<ConversationScreen> with TickerProviderStateMixin
+{
   int tabSelected = 3;
   bool moreOptions = false;
 
@@ -74,7 +74,8 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   var textController = new TextEditingController();
 
-  showColorAlertDialog(BuildContext context) {
+  showColorAlertDialog(BuildContext context)
+  {
     Widget cancelButton = FlatButton(
       child: Text("Cancel"),
       onPressed: () {},
@@ -96,7 +97,8 @@ class _ConversationScreenState extends State<ConversationScreen>
     // show the dialog
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext context)
+      {
         return alert;
       },
     );
@@ -112,7 +114,8 @@ class _ConversationScreenState extends State<ConversationScreen>
   /// added to make the screen scrool till the last message
   ScrollController _scrollController = new ScrollController();
 
-  _scrollToBottom() {
+  _scrollToBottom()
+  {
     _scrollController.animateTo(_scrollController.position.maxScrollExtent,
         duration: Duration(milliseconds: 200), curve: Curves.linear);
   }
@@ -132,24 +135,29 @@ class _ConversationScreenState extends State<ConversationScreen>
   }
 */
 
-  Future getImageFromCamera() async {
+  Future getImageFromCamera() async
+  {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
-    setState(() {
+    setState(()
+    {
       _selectedImage = image;
     });
   }
 
-  Future getImageFromGallery() async {
+  Future getImageFromGallery() async
+  {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
+    setState(()
+    {
       _selectedImage = image;
     });
   }
 
   @override
-  void initState() {
+  void initState()
+  {
     ///
 
     _anglecontroller = AnimationController(
@@ -157,8 +165,10 @@ class _ConversationScreenState extends State<ConversationScreen>
       vsync: this,
     );
 
-    _anglecontroller.addListener(() {
-      setState(() {
+    _anglecontroller.addListener(()
+    {
+      setState(()
+      {
         angle = _anglecontroller.value;
       });
     });
@@ -166,7 +176,8 @@ class _ConversationScreenState extends State<ConversationScreen>
     /// adding first message
     //addMessage("Hi");
     getMyInfo();
-    databaseMethods.getChats(widget.chatRoomid).then((result) {
+    databaseMethods.getChats(widget.chatRoomid).then((result)
+    {
       widget.messagesStream = result;
       setState(() {});
     });
@@ -174,14 +185,16 @@ class _ConversationScreenState extends State<ConversationScreen>
     super.initState();
   }
 
-  getMyInfo() async {
+  getMyInfo() async
+  {
     //_myEmail = await Constants.getUserEmailSharedPreference();
     _myName = await Constants.getUserNameSharedPreference();
     setState(() {});
   }
 
   @override
-  void dispose() {
+  void dispose()
+  {
     _anglecontroller.dispose();
     _selectedImage = null;
     selectGif = false;
@@ -189,7 +202,8 @@ class _ConversationScreenState extends State<ConversationScreen>
     super.dispose();
   }
 
-  Widget chatList() {
+  Widget chatList()
+  {
     return SingleChildScrollView(
       child: Container(
         child: widget.messagesStream != null
@@ -197,7 +211,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                 children: <Widget>[
                   StreamBuilder(
                     stream: widget.messagesStream,
-                    builder: (context, snapshot) {
+                    builder: (context, snapshot)
+                    {
                       return snapshot.data != null
                           ? ListView.builder(
                               itemCount: snapshot.data.documents.length,
@@ -206,20 +221,15 @@ class _ConversationScreenState extends State<ConversationScreen>
                               padding: EdgeInsets.symmetric(vertical: 8),
                               controller: _scrollController,
                               physics: ClampingScrollPhysics(),
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context, index)
+                              {
                                 return ConversationTile(
-                                  sendByMe: snapshot.data.documents[index]
-                                          .data["sendBy"] ==
-                                      _myName,
-                                  message: snapshot
-                                      .data.documents[index].data["message"],
+                                  sendByMe: snapshot.data.documents[index].data["sendBy"] == _myName,
+                                  message: snapshot.data.documents[index].data["message"],
                                   profilePic: widget.profilePicUrl,
-                                  messageImgUrl: snapshot
-                                      .data.documents[index].data["imgUrl"],
-                                  bottomMargin: index ==
-                                      snapshot.data.documents.length - 1,
-                                  messageId: snapshot
-                                      .data.documents[index].data["messageId"],
+                                  messageImgUrl: snapshot.data.documents[index].data["imgUrl"],
+                                  bottomMargin: index == snapshot.data.documents.length - 1,
+                                  messageId: snapshot.data.documents[index].data["messageId"],
                                   chatRoomId: widget.chatRoomid,
                                 );
                               })
@@ -273,7 +283,8 @@ class _ConversationScreenState extends State<ConversationScreen>
     };
 
     /// update last message send
-    Map<String, dynamic> chatRoomUpdate = {
+    Map<String, dynamic> chatRoomUpdate =
+    {
       "lastmessage": mesage,
       "lastMessageSendBy": _myName,
       'timestamp': Timestamp.now()
@@ -281,21 +292,23 @@ class _ConversationScreenState extends State<ConversationScreen>
 
     /// ...............
 
-    DatabaseMethods()
-        .addMessage(widget.chatRoomid, messageData, messageId, chatRoomUpdate);
+    DatabaseMethods().addMessage(widget.chatRoomid, messageData, messageId, chatRoomUpdate);
 
     ConversationModel conversatModel3 = new ConversationModel();
     conversatModel3.setMessage(mesage);
     conversatModel3.setSendByMe(true);
     //conversations.add(conversatModel3);
     FocusScope.of(context).unfocus();
-    databaseMethods.getChats(widget.chatRoomid).then((result) {
-      setState(() {
+    databaseMethods.getChats(widget.chatRoomid).then((result)
+    {
+      setState(()
+      {
         widget.messagesStream = result;
       });
     });
 
-    setState(() {
+    setState(()
+    {
       textController.text = "";
       _selectedImage = null;
       isImageUploading = false;
@@ -305,7 +318,8 @@ class _ConversationScreenState extends State<ConversationScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.black,
       statusBarBrightness: Brightness.dark,
@@ -323,7 +337,8 @@ class _ConversationScreenState extends State<ConversationScreen>
               child: Row(
                 children: [
                   GestureDetector(
-                          onTap: () {
+                          onTap: ()
+                          {
                             homeContainerModel.isChatSelected = false;
                             /* Navigator.push(
                       context, MaterialPageRoute(builder: (context) => Search()));*/
@@ -331,8 +346,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                           child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 16),
                               child:Icon(
-                                kIsWeb
-                                    ?  Icons.arrow_back
+                                kIsWeb ?  Icons.arrow_back
                                 : Platform.isAndroid
                                     ? Icons.arrow_back
                                     : Icons.arrow_back_ios,
@@ -412,8 +426,10 @@ class _ConversationScreenState extends State<ConversationScreen>
                                           child: Row(
                                             children: <Widget>[
                                               GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
+                                                onTap: ()
+                                                {
+                                                  setState(()
+                                                  {
                                                     selectGif = false;
                                                   });
                                                 },
@@ -426,9 +442,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                       height: 25,
                                                     ),
                                                     decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(25),
+                                                        borderRadius: BorderRadius.circular(25),
                                                         gradient: LinearGradient(
                                                             colors: [
                                                               const Color(
@@ -436,11 +450,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                               const Color(
                                                                   0x0FFFFFFF)
                                                             ],
-                                                            begin:
-                                                                FractionalOffset
-                                                                    .topLeft,
-                                                            end: FractionalOffset
-                                                                .bottomRight)),
+                                                            begin: FractionalOffset.topLeft,
+                                                            end: FractionalOffset.bottomRight)),
                                                     padding: EdgeInsets.all(10),
                                                   ),
                                                 ),
@@ -453,7 +464,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                   margin: EdgeInsets.only(
                                                       right: 16),
                                                   child: TextField(
-                                                    onChanged: (val) {
+                                                    onChanged: (val)
+                                                    {
                                                       getSearch(val);
                                                     },
                                                     style: TextStyle(
@@ -464,8 +476,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                       hintText: "Search Gif",
                                                       hintStyle: TextStyle(
                                                           color: Colors.white,
-                                                          fontFamily:
-                                                              'OverpassRegular',
+                                                          fontFamily: 'OverpassRegular',
                                                           fontSize: 15),
                                                     ),
                                                     maxLines: 1,
@@ -489,27 +500,27 @@ class _ConversationScreenState extends State<ConversationScreen>
                                             : Container(
                                                 height: 150,
                                                 child: ListView.builder(
-                                                    itemCount:
-                                                        gifmodel.data.length,
+                                                    itemCount: gifmodel.data.length,
                                                     shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.horizontal,
+                                                    scrollDirection: Axis.horizontal,
                                                     itemBuilder:
-                                                        (context, index) {
+                                                        (context, index)
+                                                    {
                                                       return GestureDetector(
-                                                          onTap: () {
+                                                          onTap: ()
+                                                          {
                                                             sendGif(gifmodel
                                                                 .data[index]
                                                                 .images
                                                                 .original
                                                                 .url);
-                                                            setState(() {
+                                                            setState(()
+                                                            {
                                                               selectGif = false;
                                                             });
                                                           },
                                                           child: Container(
-                                                            margin:
-                                                                EdgeInsets.only(
+                                                            margin: EdgeInsets.only(
                                                                     left: 8),
                                                             child: ClipRRect(
                                                                 borderRadius:
@@ -517,9 +528,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                                         .circular(
                                                                             16),
                                                                 child: Image.network(
-                                                                    gifmodel
-                                                                        .data[
-                                                                            index]
+                                                                    gifmodel.data[index]
                                                                         .images
                                                                         .original
                                                                         .url)),
@@ -585,7 +594,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                       kIsWeb
                                                           ? Container()
                                                           : GestureDetector(
-                                                        onTap: () {
+                                                        onTap: ()
+                                                        {
                                                           getImageFromGallery();
                                                         },
                                                         child: Container(
@@ -621,8 +631,10 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                         width: 16,
                                                       ),
                                                       GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
+                                                        onTap: ()
+                                                        {
+                                                          setState(()
+                                                          {
                                                             selectGif = true;
                                                             getTrending();
                                                           });
@@ -658,7 +670,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                         width: 16,
                                                       ),
                                                       GestureDetector(
-                                                        onTap: () {
+                                                        onTap: ()
+                                                        {
                                                           getImageFromCamera();
                                                         },
                                                         child: kIsWeb
@@ -681,10 +694,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                                                                           const Color(
                                                                               0x0FFFFFFF)
                                                                         ],
-                                                                        begin: FractionalOffset
-                                                                            .topLeft,
-                                                                        end: FractionalOffset
-                                                                            .bottomRight)),
+                                                                        begin: FractionalOffset.topLeft,
+                                                                        end: FractionalOffset.bottomRight)),
                                                                 padding:
                                                                     EdgeInsets
                                                                         .all(

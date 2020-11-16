@@ -60,7 +60,7 @@ class _WebHomeState extends State<WebHome>
     getMyInfoAndChat();
 
     /// Stream
-    if (infoStream == null)
+    if(infoStream == null)
     {
       infoStream = Stream<HomeContainerModel>.periodic(Duration(milliseconds: 100), (x)
       {

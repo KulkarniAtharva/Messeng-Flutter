@@ -8,12 +8,14 @@ GifModel gifModelFromJson(String str) => GifModel.fromJson(json.decode(str));
 
 String gifModelToJson(GifModel data) => json.encode(data.toJson());
 
-class GifModel {
+class GifModel
+{
   List<Datum> data;
   Pagination pagination;
   Meta meta;
 
-  GifModel({
+  GifModel(
+  {
     this.data,
     this.pagination,
     this.meta,
@@ -25,14 +27,16 @@ class GifModel {
         meta: Meta.fromJson(json["meta"]),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+  {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "pagination": pagination.toJson(),
         "meta": meta.toJson(),
-      };
+  };
 }
 
-class Datum {
+class Datum
+{
   Type type;
   String id;
   String url;
@@ -55,7 +59,8 @@ class Datum {
   Analytics analytics;
   User user;
 
-  Datum({
+  Datum(
+  {
     this.type,
     this.id,
     this.url,
@@ -103,7 +108,8 @@ class Datum {
         user: json["user"] == null ? null : User.fromJson(json["user"]),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+  {
         "type": typeValues.reverse[type],
         "id": id,
         "url": url,
@@ -128,12 +134,14 @@ class Datum {
       };
 }
 
-class Analytics {
+class Analytics
+{
   Onclick onload;
   Onclick onclick;
   Onclick onsent;
 
-  Analytics({
+  Analytics(
+  {
     this.onload,
     this.onclick,
     this.onsent,
@@ -145,17 +153,20 @@ class Analytics {
         onsent: Onclick.fromJson(json["onsent"]),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+  {
         "onload": onload.toJson(),
         "onclick": onclick.toJson(),
         "onsent": onsent.toJson(),
-      };
+  };
 }
 
-class Onclick {
+class Onclick
+{
   String url;
 
-  Onclick({
+  Onclick(
+  {
     this.url,
   });
 
@@ -163,12 +174,14 @@ class Onclick {
         url: json["url"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+  {
         "url": url,
-      };
+  };
 }
 
-class Images {
+class Images
+{
   The480WStill downsizedLarge;
   The480WStill fixedHeightSmallStill;
   FixedHeight original;
@@ -194,7 +207,8 @@ class Images {
   The480WStill the480WStill;
   DownsizedSmall hd;
 
-  Images({
+  Images(
+  {
     this.downsizedLarge,
     this.fixedHeightSmallStill,
     this.original,
@@ -252,7 +266,8 @@ class Images {
         hd: json["hd"] == null ? null : DownsizedSmall.fromJson(json["hd"]),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "downsized_large": downsizedLarge.toJson(),
         "fixed_height_small_still": fixedHeightSmallStill.toJson(),
         "original": original.toJson(),
@@ -280,13 +295,15 @@ class Images {
       };
 }
 
-class The480WStill {
+class The480WStill
+{
   String url;
   String width;
   String height;
   String size;
 
-  The480WStill({
+  The480WStill(
+  {
     this.url,
     this.width,
     this.height,
@@ -300,7 +317,8 @@ class The480WStill {
         size: json["size"] == null ? null : json["size"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "url": url,
         "width": width,
         "height": height,
@@ -308,7 +326,8 @@ class The480WStill {
       };
 }
 
-class DownsizedSmall {
+class DownsizedSmall
+{
   String height;
   String mp4;
   String mp4Size;
@@ -328,7 +347,8 @@ class DownsizedSmall {
         width: json["width"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "height": height,
         "mp4": mp4,
         "mp4_size": mp4Size,
@@ -336,7 +356,8 @@ class DownsizedSmall {
       };
 }
 
-class FixedHeight {
+class FixedHeight
+{
   String height;
   String mp4;
   String mp4Size;
@@ -348,7 +369,8 @@ class FixedHeight {
   String frames;
   String hash;
 
-  FixedHeight({
+  FixedHeight(
+      {
     this.height,
     this.mp4,
     this.mp4Size,
@@ -374,7 +396,8 @@ class FixedHeight {
         hash: json["hash"] == null ? null : json["hash"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "height": height,
         "mp4": mp4 == null ? null : mp4,
         "mp4_size": mp4Size == null ? null : mp4Size,
@@ -388,7 +411,8 @@ class FixedHeight {
       };
 }
 
-class Looping {
+class Looping
+{
   String mp4;
   String mp4Size;
 
@@ -402,7 +426,8 @@ class Looping {
         mp4Size: json["mp4_size"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "mp4": mp4,
         "mp4_size": mp4Size,
       };
@@ -416,7 +441,8 @@ enum Type { GIF }
 
 final typeValues = EnumValues({"gif": Type.GIF});
 
-class User {
+class User
+{
   String avatarUrl;
   String bannerImage;
   String bannerUrl;
@@ -445,7 +471,8 @@ class User {
         isVerified: json["is_verified"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "avatar_url": avatarUrl,
         "banner_image": bannerImage,
         "banner_url": bannerUrl,
@@ -456,7 +483,8 @@ class User {
       };
 }
 
-class Meta {
+class Meta
+{
   int status;
   String msg;
   String responseId;
@@ -473,19 +501,22 @@ class Meta {
         responseId: json["response_id"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "status": status,
         "msg": msg,
         "response_id": responseId,
       };
 }
 
-class Pagination {
+class Pagination
+{
   int totalCount;
   int count;
   int offset;
 
-  Pagination({
+  Pagination(
+  {
     this.totalCount,
     this.count,
     this.offset,
@@ -497,21 +528,25 @@ class Pagination {
         offset: json["offset"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "total_count": totalCount,
         "count": count,
         "offset": offset,
       };
 }
 
-class EnumValues<T> {
+class EnumValues<T>
+{
   Map<String, T> map;
   Map<T, String> reverseMap;
 
   EnumValues(this.map);
 
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
+  Map<T, String> get reverse
+  {
+    if (reverseMap == null)
+    {
       reverseMap = map.map((k, v) => new MapEntry(v, k));
     }
     return reverseMap;

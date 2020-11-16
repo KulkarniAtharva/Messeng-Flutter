@@ -26,14 +26,14 @@ class DatabaseMethods
 
   Future<QuerySnapshot> getRecentUsers() async
   {
-    return await FirebaseFirestore.instance.collection("users").limit(10).getDocuments();
+    return await FirebaseFirestore.instance.collection("users").limit(10).get();
   }
 
   Future<bool> addChatRoom(chatRoom, String chatRoomId) async
   {
     QuerySnapshot blockedSnapshot = await isUserBlocked(chatRoomId);
     print("${blockedSnapshot.toString()} this what we have");
-    if (blockedSnapshot.documents.length == 0)
+    if (blockedSnapshot.docs.length == 0)
     {
       FirebaseFirestore.instance
           .collection("chatRooms")
