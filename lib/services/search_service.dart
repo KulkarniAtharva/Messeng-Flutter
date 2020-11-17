@@ -2,24 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SearchService
 {
-  /* searchByName(String searchField) async {
+  /* searchByName(String searchField) async
+   {
     return await Firestore.instance.collection("users").where("userName",
         isEqualTo: searchField.toLowerCase()).getDocuments();
   }*/
 
   searchByName(String searchField)
   {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection('users')
         .where('userName', isEqualTo: searchField)
-        .getDocuments();
+        .get();
   }
 
   getChatRoomsByUserName(String userName)
   {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection('chatRooms')
         .where('users', arrayContains: userName)
-        .getDocuments();
+        .get();
   }
 }

@@ -140,7 +140,8 @@ class _SignUpState extends State<SignUp>
                                 decoration: Constants.themedecoration("email"),
                                 onChanged: (val)
                                 {
-                                  setState(() {
+                                  setState(()
+                                  {
                                     email = val;
                                   });
                                 },
@@ -156,8 +157,10 @@ class _SignUpState extends State<SignUp>
                                         "Password more than 6 character",
                                 decoration: Constants.themedecoration("password"),
                                 obscureText: true,
-                                onChanged: (val) {
-                                  setState(() {
+                                onChanged: (val)
+                                {
+                                  setState(()
+                                  {
                                     password = val;
                                   });
                                 },
@@ -168,14 +171,15 @@ class _SignUpState extends State<SignUp>
                               GestureDetector(
                                 onTap: () async
                                 {
-                                  if (_formKey.currentState.validate())
+                                  if(_formKey.currentState.validate())
                                   {
                                     setState(()
                                     {
                                       _loading = true;
                                     });
 
-                                    await _authService.signUpWithEmailAndPassword(email, password).then((value) {
+                                    await _authService.signUpWithEmailAndPassword(email, password).then((value)
+                                    {
                                       if (value != null)
                                       {
                                         /// uploading user info to Firestore
@@ -308,7 +312,8 @@ class _SignUpState extends State<SignUp>
                                     width: 4,
                                   ),
                                   GestureDetector(
-                                      onTap: () {
+                                      onTap: ()
+                                      {
                                         widget.toogleView();
                                       },
                                       child: Text(
